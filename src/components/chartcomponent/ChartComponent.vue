@@ -1,8 +1,9 @@
 <template>
-    <div class="chart-summary-container">
+    <div class="chart-summary-left">
       <div class="chart-container">
         <canvas ref="chartCanvas"></canvas>
-        <div class="period-buttons">
+      </div>
+      <div class="period-buttons">
           <button
             v-for="period in periods"
             :key="period"
@@ -12,7 +13,6 @@
             {{ period }}
           </button>
         </div>
-      </div>
     </div>
   </template>
   
@@ -134,6 +134,12 @@
   .chart-summary-container {
     display: flex;
   }
+
+  .chart-summary-left {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
   
   .chart-container {
     position: relative;
@@ -146,7 +152,6 @@
   
   .period-buttons {
     display: flex;
-    justify-content: center;
     margin-top: 10px;
   }
   

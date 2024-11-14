@@ -55,6 +55,7 @@
     background-color: #222;
     color: #fff;
     border-radius: 4px;
+    margin: 0;
   }
   
   .header-title {
