@@ -14,8 +14,10 @@
     "@mdi/font": "^7.4.47",
     "axios": "^1.7.7",
     "chart.js": "^4.4.6",
+    "echarts": "^5.5.1",
     "pinia": "^2.2.6",
     "vue": "^3.5.12",
+    "vue-echarts": "^7.0.3",
     "vuetify": "^3.7.4"
   },
   "devDependencies": {

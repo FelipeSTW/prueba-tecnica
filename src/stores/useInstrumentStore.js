@@ -19,7 +19,7 @@ export const useInstrumentStore = defineStore('instrument', {
             id: instrument.codeInstrument,
             name: instrument.shortName,
             last: instrument.lastPrice,
-            amount: instrument.volumeMoney / 1000000, // Suponiendo que 'amount' es 'volumeMoney' en millones
+            amount: instrument.volumeMoney / 1000000,
             varDay: instrument.pctDay,
             var30d: instrument.pct30D,
             varYear: instrument.pctCY,
@@ -55,8 +55,8 @@ export const useInstrumentStore = defineStore('instrument', {
     },
     setSelectedInstrument(instrument) {
       this.selectedInstrument = instrument;
-      this.fetchSummary(instrument.id); // Llamar a la API para el resumen del instrumento seleccionado
-      this.fetchHistory(instrument.id); // Llamar a la API para el historial del gráfico
+      this.fetchSummary(instrument.id);
+      this.fetchHistory(instrument.id); // Los datos del gráfico se actualizan aquí
     },
     setPeriod(newPeriod) {
       this.period = newPeriod;
@@ -66,3 +66,4 @@ export const useInstrumentStore = defineStore('instrument', {
     }
   }
 });
+
