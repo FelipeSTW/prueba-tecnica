@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, watch, onMounted } from 'vue';
+import { defineComponent, ref, watch, onMounted, computed } from 'vue';
 import { useInstrumentStore } from '../../stores/useInstrumentStore';
 import { use } from 'echarts/core';
 import VChart from 'vue-echarts';
@@ -54,19 +54,21 @@ export default defineComponent({
   setup() {
     const instrumentStore = useInstrumentStore();
     const periods = ['1D', '1S', '1M', '3M', '6M', '1A', '5A'];
+    const selectedPeriod = ref('1D');
+
     const chartOptions = ref({
       title: {
         text: 'Evolución del Índice',
         left: 'center',
         textStyle: {
-          color: '#ffffff'
-        }
+          color: '#ffffff',
+        },
       },
       tooltip: {
         trigger: 'axis',
         axisPointer: {
-          type: 'cross'
-        }
+          type: 'cross',
+        },
       },
       grid: {
         left: '3%',
@@ -104,13 +106,35 @@ export default defineComponent({
       ],
     });
 
+    // Computed property para filtrar los datos según el periodo seleccionado
+    const filteredChartData = computed(() => {
+      const data = instrumentStore.chartData;
+      if (selectedPeriod.value === '1D') {
+        return data.slice(-1);
+      } else if (selectedPeriod.value === '1S') {
+        return data.slice(-7);
+      } else if (selectedPeriod.value === '1M') {
+        return data.slice(-30);
+      } else if (selectedPeriod.value === '3M') {
+        return data.slice(-90);
+      } else if (selectedPeriod.value === '6M') {
+        return data.slice(-180);
+      } else if (selectedPeriod.value === '1A') {
+        return data.slice(-365);
+      } else if (selectedPeriod.value === '5A') {
+        return data; // En este ejemplo, usamos todos los datos disponibles
+      } else {
+        return data;
+      }
+    });
+
     const initializeChart = () => {
-      chartOptions.value.xAxis.data = instrumentStore.chartData.map(data => data.date);
-      chartOptions.value.series[0].data = instrumentStore.chartData.map(data => data.value);
+      chartOptions.value.xAxis.data = filteredChartData.value.map((data) => data.date);
+      chartOptions.value.series[0].data = filteredChartData.value.map((data) => data.value);
     };
 
     watch(
-      () => instrumentStore.chartData,
+      () => [instrumentStore.chartData, selectedPeriod.value],
       () => {
         initializeChart();
       },
@@ -122,13 +146,13 @@ export default defineComponent({
     });
 
     const changePeriod = (period) => {
-      instrumentStore.setPeriod(period);
+      selectedPeriod.value = period;
     };
 
     return {
       chartOptions,
       periods,
-      selectedPeriod: ref(instrumentStore.period),
+      selectedPeriod,
       changePeriod,
     };
   },
