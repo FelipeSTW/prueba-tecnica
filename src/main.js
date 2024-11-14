@@ -1,11 +1,23 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from './App.vue'
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import { createVuetify } from 'vuetify';
+import 'vuetify/styles';
+import '@mdi/font/css/materialdesignicons.css';
+import App from './App.vue';
 
-const app = createApp(App)
+const app = createApp(App);
 
-app.use(createPinia())
+// Crear y usar Pinia
+const pinia = createPinia();
+app.use(pinia);
 
-app.mount('#app')
+// Crear y usar Vuetify
+const vuetify = createVuetify();
+app.use(vuetify);
+
+// Montar la aplicación
+app.mount('#app');
+
+

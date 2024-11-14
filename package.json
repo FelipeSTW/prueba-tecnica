@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@babel/core": "^7.26.0",
+    "@mdi/font": "^7.4.47",
+    "axios": "^1.7.7",
     "chart.js": "^4.4.6",
     "pinia": "^2.2.6",
-    "vue": "^3.5.12"
+    "vue": "^3.5.12",
+    "vuetify": "^3.7.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",

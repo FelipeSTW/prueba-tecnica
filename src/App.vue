@@ -6,6 +6,10 @@ import HeaderComponent from './components/headercomponent/HeaderComponent.vue';
 import ChartComponent from './components/chartcomponent/ChartComponent.vue';
 import InstrumentListComponent from './components/instrumentlistcomponent/InstrumentListComponent.vue';
 import SummaryComponent from './components/summarycomponent/SummaryComponent.vue';
+import { onMounted } from 'vue';
+import { useInstrumentStore } from './stores/useInstrumentStore';
+
+
 
 // Estado de búsqueda
 const searchQuery = ref('');
@@ -61,13 +65,21 @@ function handleInstrumentSelected(instrument) {
   console.log('Instrumento seleccionado:', instrument);
   // Aquí puedes actualizar el estado global o realizar alguna acción con el instrumento seleccionado
 }
+
+
+
 </script>
 
 <template>
-  <div>
+  
+  <v-app>
+    <v-container>
+      <SearchBarComponent @search="handleSearch" />
+
+    </v-container>
     <!-- Barra de búsqueda -->
-    <SearchBarComponent @search="handleSearch" />
-    <p v-if="searchQuery">Mostrando resultados para: "{{ searchQuery }}"</p>
+    
+    
 
     <!-- Componente de Tabs para cambiar el índice -->
     <TabComponent @tab-selected="handleTabSelected" />
@@ -99,7 +111,7 @@ function handleInstrumentSelected(instrument) {
       :instruments="instruments"
       @instrument-selected="handleInstrumentSelected"
     />
-  </div>
+  </v-app>
 </template>
 
 <style scoped>

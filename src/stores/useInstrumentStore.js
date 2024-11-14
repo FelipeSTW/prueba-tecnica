@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import axios from 'axios'; // Asegúrate de instalar axios
 
 export const useInstrumentStore = defineStore('instrument', {
   state: () => ({
@@ -10,16 +11,25 @@ export const useInstrumentStore = defineStore('instrument', {
     chartData: [] // Datos del gráfico
   }),
   actions: {
+    async fetchInstruments() {
+      try {
+        const response = await axios.get('/src/servicios/constituyentes/constituensList.json');
+        if (response.data.success) {
+          this.instruments = response.data.data.constituents;
+        }
+      } catch (error) {
+        console.error('Error al cargar los instrumentos:', error);
+      }
+    },
     setSelectedInstrument(instrument) {
       this.selectedInstrument = instrument;
-      // Aquí podrías llamar un servicio para actualizar `summaryData` y `chartData`
     },
     setPeriod(newPeriod) {
       this.period = newPeriod;
     },
     setSelectedIndex(newIndex) {
       this.selectedIndex = newIndex;
-      // Llama al servicio para obtener datos del nuevo índice
     }
   }
 });
+
