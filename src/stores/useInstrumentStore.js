@@ -6,8 +6,8 @@ export const useInstrumentStore = defineStore('instrument', {
     selectedInstrument: null,
     selectedIndex: 'IPSA',
     period: '1D',
-    instruments: [], // Lista de instrumentos
-    summaryData: {}, // Detalle del instrumento seleccionado
+    instruments: [],
+    summaryData: null, // Resumen del instrumento seleccionado
     chartData: [], // Datos del gráfico
   }),
   actions: {
@@ -34,7 +34,22 @@ export const useInstrumentStore = defineStore('instrument', {
       try {
         const response = await axios.get(`/src/servicios/resumen/${instrumentId}.json`);
         if (response.data.success) {
-          this.summaryData = response.data.data;
+          const data = response.data.data.price;
+          this.summaryData = {
+            date: data.datetimeLastPrice,
+            marketName: response.data.data.info.marketName,
+            openPrice: data.openPrice,
+            closePrice: data.closePrice,
+            maxDay: data.maxDay,
+            minDay: data.minDay,
+            max52W: data.max52W,
+            min52W: data.min52W,
+            variations: {
+              "1 MES": data.pct30D,
+              "1 AÑO": data.pctRelW52,
+              "AÑO A LA FECHA": data.pctRelCY,
+            },
+          };
         }
       } catch (error) {
         console.error('Error al cargar el resumen del instrumento:', error);
@@ -55,15 +70,15 @@ export const useInstrumentStore = defineStore('instrument', {
     },
     setSelectedInstrument(instrument) {
       this.selectedInstrument = instrument;
+      // Llamar a las acciones para cargar los datos necesarios
       this.fetchSummary(instrument.id);
-      this.fetchHistory(instrument.id); // Los datos del gráfico se actualizan aquí
+      this.fetchHistory(instrument.id);
     },
     setPeriod(newPeriod) {
       this.period = newPeriod;
     },
     setSelectedIndex(newIndex) {
       this.selectedIndex = newIndex;
-    }
-  }
+    },
+  },
 });
-
