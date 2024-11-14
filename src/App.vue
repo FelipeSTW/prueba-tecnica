@@ -41,14 +41,12 @@ function handleInstrumentSelected(instrument) {
 <template>
   <v-app>
     <v-container>
-      <!-- Barra de búsqueda -->
+      <!-- Aquí aseguramos que el evento esté correctamente vinculado -->
       <SearchBarComponent @search="handleSearch" />
-      <p v-if="instrumentStore.selectedInstrument">
-        Instrumento seleccionado: {{ instrumentStore.selectedInstrument.name }}
-      </p>
+    </v-container>
 
+    <v-main>
       <!-- Componente de Tabs para cambiar el índice -->
-      <TabComponent @tab-selected="handleTabSelected" />
       <p>Índice actual: {{ instrumentStore.selectedIndex }}</p>
 
       <!-- Header que muestra el índice seleccionado -->
@@ -72,12 +70,14 @@ function handleInstrumentSelected(instrument) {
         <SummaryComponent :summaryData="instrumentStore.summaryData" />
       </div>
 
+      <TabComponent @tab-selected="handleTabSelected" />
+
       <!-- Lista de instrumentos -->
       <InstrumentListComponent
         :instruments="instrumentStore.instruments"
         @instrument-selected="handleInstrumentSelected"
       />
-    </v-container>
+    </v-main>
   </v-app>
 </template>
 
