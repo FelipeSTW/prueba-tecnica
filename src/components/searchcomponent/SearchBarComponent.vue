@@ -3,13 +3,13 @@
     <input
       type="text"
       v-model="searchQuery"
-      @input="emitSearch"
+      @input="handleSearch"
       placeholder="Buscar un instrumento"
       class="search-input"
     />
-    <ul v-if="searchQuery.length >= 2" class="list-result">
-      <li v-for="instrument in filteredInstruments" :key="instrument.codeInstrument" @click="selectInstrument(instrument)">
-        {{ instrument.name }} - Último: {{ formatLastPrice(instrument.lastPrice) }}
+    <ul v-if="filteredInstruments.length > 0" class="list-result">
+      <li v-for="instrument in filteredInstruments" :key="instrument.id" @click="selectInstrument(instrument)">
+        {{ instrument.name }} - Último: ${{ formatCurrency(instrument.last) }}
       </li>
     </ul>
   </div>
@@ -22,48 +22,47 @@ import { computed, ref, onMounted } from 'vue';
 export default {
   name: 'SearchBarComponent',
   setup() {
-    // Asegúrate de que Pinia ya esté configurada antes de usar el store
     const instrumentStore = useInstrumentStore();
+    const searchQuery = ref('');
 
-    // Aquí puedes llamar a métodos del store, como fetchInstruments
+    // Cargar los instrumentos cuando el componente sea montado
     onMounted(() => {
       instrumentStore.fetchInstruments();
     });
 
-    const searchQuery = ref('');
-
+    // Computed para filtrar instrumentos según el query de búsqueda
     const filteredInstruments = computed(() => {
       if (!searchQuery.value) {
-        return instrumentStore.instruments;
+        return [];
       }
       return instrumentStore.instruments.filter((instrument) =>
         instrument.name.toLowerCase().includes(searchQuery.value.toLowerCase())
       );
     });
 
-    const emitSearch = () => {
-      console.log('Buscar instrumento:', searchQuery.value);
-    };
-
     const selectInstrument = (instrument) => {
       instrumentStore.setSelectedInstrument(instrument);
       searchQuery.value = ''; // Limpiar la búsqueda después de seleccionar un instrumento
     };
 
-    // Formatear el precio del instrumento de forma segura
-    const formatLastPrice = (price) => {
-      if (price === null || price === undefined) {
+    const formatCurrency = (value) => {
+      if (value === null || value === undefined) {
         return '-';
       }
-      return `$${Number(price).toFixed(2)}`;
+      return `$${Number(value).toFixed(2)}`;
+    };
+
+    const handleSearch = () => {
+      // Este método se puede utilizar para otras funcionalidades adicionales al buscar
+      console.log('Realizando búsqueda:', searchQuery.value);
     };
 
     return {
       searchQuery,
       filteredInstruments,
-      emitSearch,
       selectInstrument,
-      formatLastPrice,
+      formatCurrency,
+      handleSearch,
     };
   },
 };
@@ -109,7 +108,6 @@ export default {
 .list-result li {
   list-style-type: none;
   cursor: pointer;
-  padding: 5px 0;
 }
 
 .list-result li:hover {
