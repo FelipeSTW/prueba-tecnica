@@ -9,6 +9,9 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!@vue|vue|vuetify|@mdi/)'
+  ],
   testMatch: [
     '**/__tests__/**/*.[jt]s?(x)',
     '**/?(*.)+(spec|test).[tj]s?(x)'
@@ -16,24 +19,10 @@ module.exports = {
   testEnvironmentOptions: {
     customExportConditions: ['node', 'node-addons'],
   },
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  transformIgnorePatterns: ['/node_modules/(?!vue-awesome)'],
-  rootDir: '.',
-  moduleDirectories: ['node_modules', 'src'],
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '^vuetify$': '<rootDir>/__mocks__/vuetify.js'
-  },
-  
-  // Configurar cobertura
+  setupFiles: ['<rootDir>/jest.setup.js'],
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{js,vue}',
-    '!src/main.js',
-    '!src/plugins/**/*'
-  ],
-  
-  // Configurar timeout más largo para tests de integración
-  testTimeout: 10000
+    '!src/main.js'
+  ]
 }
