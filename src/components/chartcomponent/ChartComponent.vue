@@ -180,7 +180,7 @@ export default defineComponent({
 .chart-container {
   position: relative;
   height: 400px;
-  width: 700px;
+  width: 1200px;
   background-color: #222;
   padding: 10px;
   border-radius: 8px;

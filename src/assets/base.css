@@ -57,6 +57,9 @@
   margin: 0;
   font-weight: normal;
 }
+.v-application.v-theme--light.v-layout.v-layout--full-height.v-locale--is-ltr {
+  background-color: black;
+}
 
 body {
   min-height: 100vh;

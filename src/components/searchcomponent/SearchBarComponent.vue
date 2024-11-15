@@ -108,6 +108,7 @@ export default {
 .list-result li {
   list-style-type: none;
   cursor: pointer;
+  color: white;
 }
 
 .list-result li:hover {

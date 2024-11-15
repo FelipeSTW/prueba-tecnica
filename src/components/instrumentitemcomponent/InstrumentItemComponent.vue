@@ -64,6 +64,7 @@ export default {
   width: 14%;
   font-weight: bold;
   text-align: left;
+  color: white;
 }
 .instrument-last,
 .instrument-amount,

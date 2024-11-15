@@ -1,55 +1,53 @@
 <template>
-  <v-container v-if="summaryData">
-    <v-row class="summary-header">
-      <v-col>
-        <span>Cotización: {{ summaryData.date }}</span>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-card class="market-details">
-          <v-card-title>{{ summaryData.marketName }}</v-card-title>
-          <v-card-text>
-            <div>
-              <span>Apertura: {{ formatCurrency(summaryData.openPrice) }}</span>
-            </div>
-            <div>
-              <span>Cierre Anterior: {{ formatCurrency(summaryData.closePrice) }}</span>
-            </div>
-            <div>
-              <span>Máximo Diario: {{ formatCurrency(summaryData.maxDay) }}</span>
-            </div>
-            <div>
-              <span>Mínimo Diario: {{ formatCurrency(summaryData.minDay) }}</span>
-            </div>
-            <div>
-              <span>Máximo 52 Semanas: {{ formatCurrency(summaryData.max52W) }}</span>
-            </div>
-            <div>
-              <span>Mínimo 52 Semanas: {{ formatCurrency(summaryData.min52W) }}</span>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-card class="variation-section">
-          <v-card-title>Variación</v-card-title>
-          <v-card-text>
-            <div
-              class="variation-item"
-              v-for="(value, label) in summaryData.variations"
-              :key="label"
-            >
-              <span>{{ label }}</span>
-              <span :class="{ positive: value >= 0, negative: value < 0 }">{{ formatPercentage(value) }}</span>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div class="summary-component" v-if="summaryData">
+    <div class="header">
+      <span>Cotización</span>
+      <span>{{ summaryData.date }}</span>
+    </div>
+    <div class="market-details">
+      <div class="detail">
+        <span>MERCADO</span>
+        <span>{{ summaryData.marketName }}</span>
+      </div>
+      <div class="detail">
+        <span>APERTURA</span>
+        <span>{{ formatCurrency(summaryData.openPrice) }}</span>
+      </div>
+      <div class="detail">
+        <span>CIERRE ANTERIOR</span>
+        <span>{{ formatCurrency(summaryData.closePrice) }}</span>
+      </div>
+      <div class="detail">
+        <span>MÁXIMO DIARIO</span>
+        <span>{{ formatCurrency(summaryData.maxDay) }}</span>
+      </div>
+      <div class="detail">
+        <span>MÍNIMO DIARIO</span>
+        <span>{{ formatCurrency(summaryData.minDay) }}</span>
+      </div>
+      <div class="detail">
+        <span>MÁXIMO 52 SEMANAS</span>
+        <span>{{ formatCurrency(summaryData.max52W) }}</span>
+      </div>
+      <div class="detail">
+        <span>MÍNIMO 52 SEMANAS</span>
+        <span>{{ formatCurrency(summaryData.min52W) }}</span>
+      </div>
+    </div>
+    <div class="variation-section">
+      <div class="variation-header">Variación**</div>
+      <div class="variation-details">
+        <div
+          class="variation-item"
+          v-for="(value, label) in summaryData.variations"
+          :key="label"
+        >
+          <span>{{ label }}</span>
+          <span :class="{ positive: value >= 0, negative: value < 0 }">{{ formatPercentage(value) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -61,7 +59,9 @@ export default {
   setup() {
     const instrumentStore = useInstrumentStore();
 
-    const summaryData = computed(() => instrumentStore.summaryData);
+    const summaryData = computed(() => {
+      return instrumentStore.summaryData;
+    });
 
     const formatCurrency = (value) => {
       if (value === null || value === undefined) return '-';
@@ -89,7 +89,7 @@ export default {
   padding: 16px;
   border-radius: 8px;
   font-size: 14px;
-  width: 100%;
+  width: 550px;
 }
 .header {
   display: flex;
@@ -102,8 +102,21 @@ export default {
   padding-bottom: 16px;
   margin-bottom: 16px;
 }
+.detail {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 0;
+}
 .variation-section {
   margin-top: 16px;
+}
+.variation-header {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.variation-details {
+  display: flex;
+  flex-direction: column;
 }
 .variation-item {
   display: flex;
