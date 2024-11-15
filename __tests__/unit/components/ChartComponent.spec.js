@@ -15,11 +15,14 @@ describe('ChartComponent', () => {
 
   beforeEach(() => {
     const pinia = createTestingPinia({
+      createSpy: jest.fn,
       initialState: {
         instrument: {
+          instruments: mockChartData,
           chartData: mockChartData
         }
-      }
+      },
+      stubActions: false
     })
 
     wrapper = mount(ChartComponent, {
@@ -35,6 +38,7 @@ describe('ChartComponent', () => {
     })
 
     store = useInstrumentStore()
+    store.fetchInstruments = jest.fn().mockResolvedValue()
   })
 
   it('renders period buttons correctly', () => {
@@ -57,11 +61,12 @@ describe('ChartComponent', () => {
   })
 
   it('filters chart data correctly for different periods', async () => {
-    store.chartData = Array.from({ length: 400 }, (_, i) => ({
+    const data = Array.from({ length: 400 }, (_, i) => ({
       date: `2024-01-${i + 1}`,
       value: 100 + i
     }))
-    
+    store.chartData = data
+
     await wrapper.vm.changePeriod('1D')
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.chartOptions.series[0].data.length).toBe(1)

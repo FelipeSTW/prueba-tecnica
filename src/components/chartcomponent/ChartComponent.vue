@@ -54,7 +54,7 @@ export default defineComponent({
   setup() {
     const instrumentStore = useInstrumentStore();
     const periods = ['1D', '1S', '1M', '3M', '6M', '1A', '5A'];
-    const selectedPeriod = ref('1D');
+    const selectedPeriod = ref('1A'); // Establecer "1A" por defecto
 
     const chartOptions = ref({
       title: {
@@ -138,11 +138,17 @@ export default defineComponent({
       () => {
         initializeChart();
       },
-      { deep: true }
+      { deep: true, immediate: true } // immediate para ejecutar al inicio
     );
 
     onMounted(() => {
-      initializeChart();
+      if (instrumentStore.instruments.length === 0) {
+        instrumentStore.fetchInstruments().then(() => {
+          initializeChart(); // Inicializar gráfico después de cargar los datos
+        });
+      } else {
+        initializeChart();
+      }
     });
 
     const changePeriod = (period) => {
@@ -158,6 +164,7 @@ export default defineComponent({
   },
 });
 </script>
+
 
 <style scoped>
 .chart-summary-container {

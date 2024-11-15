@@ -5,7 +5,7 @@ export const useInstrumentStore = defineStore('instrument', {
   state: () => ({
     selectedInstrument: null,
     selectedIndex: 'IPSA',
-    period: '1D',
+    period: '1A', // Mostrar 1 año inicialmente
     instruments: [],
     summaryData: null, // Resumen del instrumento seleccionado
     chartData: [], // Datos del gráfico
@@ -25,6 +25,11 @@ export const useInstrumentStore = defineStore('instrument', {
             varYear: instrument.pctCY,
             var12m: instrument.pct1Y,
           }));
+
+          // Si la lista de instrumentos tiene al menos un elemento, selecciona el primero
+          if (this.instruments.length > 0) {
+            this.setSelectedInstrument(this.instruments[0]);
+          }
         }
       } catch (error) {
         console.error('Error al cargar los instrumentos:', error);
