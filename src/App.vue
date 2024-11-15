@@ -8,10 +8,10 @@ import ChartComponent from './components/chartcomponent/ChartComponent.vue';
 import InstrumentListComponent from './components/instrumentlistcomponent/InstrumentListComponent.vue';
 import SummaryComponent from './components/summarycomponent/SummaryComponent.vue';
 
-// Utilizamos el store de Pinia
+// Utilizo el store de Pinia
 const instrumentStore = useInstrumentStore();
 
-// Llamamos a la acción para obtener los instrumentos desde el archivo JSON
+// Llamo a la acción para obtener los instrumentos desde el archivo JSON
 onMounted(() => {
   instrumentStore.fetchInstruments();
 });
@@ -41,7 +41,7 @@ function handleInstrumentSelected(instrument) {
 <template>
   <v-app>
     <v-container>
-      <!-- Aquí aseguramos que el evento esté correctamente vinculado -->
+      <!-- Aquí aseguro que el evento esté correctamente vinculado -->
       <SearchBarComponent @search="handleSearch" />
     </v-container>
 
@@ -87,11 +87,11 @@ function handleInstrumentSelected(instrument) {
 }
 
 .ChartComponent {
-  flex: 3; /* Da más espacio al gráfico */
+  flex: 3; 
 }
 
 .SummaryComponent {
-  flex: 1; /* Da menos espacio al resumen */
+  flex: 1; 
 }
 
 div {

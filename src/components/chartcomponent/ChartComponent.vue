@@ -54,7 +54,7 @@ export default defineComponent({
   setup() {
     const instrumentStore = useInstrumentStore();
     const periods = ['1D', '1S', '1M', '3M', '6M', '1A', '5A'];
-    const selectedPeriod = ref('1A'); // Establecer "1A" por defecto
+    const selectedPeriod = ref('1A'); 
 
     const chartOptions = ref({
       title: {
@@ -106,7 +106,7 @@ export default defineComponent({
       ],
     });
 
-    // Computed property para filtrar los datos según el periodo seleccionado
+    // filtro los datos según el periodo seleccionado
     const filteredChartData = computed(() => {
       const data = instrumentStore.chartData;
       if (selectedPeriod.value === '1D') {
@@ -122,7 +122,7 @@ export default defineComponent({
       } else if (selectedPeriod.value === '1A') {
         return data.slice(-365);
       } else if (selectedPeriod.value === '5A') {
-        return data; // En este ejemplo, usamos todos los datos disponibles
+        return data; 
       } else {
         return data;
       }
@@ -138,13 +138,13 @@ export default defineComponent({
       () => {
         initializeChart();
       },
-      { deep: true, immediate: true } // immediate para ejecutar al inicio
+      { deep: true, immediate: true } // ejecutar al inicio
     );
 
     onMounted(() => {
       if (instrumentStore.instruments.length === 0) {
         instrumentStore.fetchInstruments().then(() => {
-          initializeChart(); // Inicializar gráfico después de cargar los datos
+          initializeChart(); // Inicializo gráfico después de cargar los datos
         });
       } else {
         initializeChart();

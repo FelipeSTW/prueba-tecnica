@@ -29,7 +29,7 @@
     methods: {
       selectTab(tab) {
         this.selectedTab = tab;
-        // Emitimos un evento 'tab-selected' con el nombre del índice seleccionado
+        //  evento 'tab-selected' con el nombre del índice seleccionado
         this.$emit('tab-selected', tab);
       },
     },

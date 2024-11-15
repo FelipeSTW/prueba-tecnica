@@ -58,7 +58,7 @@ export default {
   cursor: pointer;
 }
 .instrument-item:hover {
-  background-color: #444; /* Color de fondo al pasar el ratón */
+  background-color: #444; 
 }
 .instrument-name {
   width: 14%;
@@ -73,12 +73,12 @@ export default {
   text-align: right;
 }
 .instrument-change.positive {
-  color: #4CAF50; /* Verde para cambios positivos */
+  color: #4CAF50; 
 }
 .instrument-change.negative {
-  color: #F44336; /* Rojo para cambios negativos */
+  color: #F44336; 
 }
 .instrument-change.neutral {
-  color: #FFFFFF; /* Blanco para cambios neutros (0) */
+  color: #FFFFFF; 
 }
 </style>

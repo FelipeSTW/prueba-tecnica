@@ -80,11 +80,11 @@
   }
   
   .positive {
-    color: #4caf50; /* Verde */
+    color: #4caf50; 
   }
   
   .negative {
-    color: #f44336; /* Rojo */
+    color: #f44336;
   }
   </style>
   

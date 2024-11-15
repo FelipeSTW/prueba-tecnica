@@ -124,9 +124,9 @@ export default {
   margin: 4px 0;
 }
 .positive {
-  color: #4caf50; /* Verde para valores positivos */
+  color: #4caf50; 
 }
 .negative {
-  color: #f44336; /* Rojo para valores negativos */
+  color: #f44336; 
 }
 </style>

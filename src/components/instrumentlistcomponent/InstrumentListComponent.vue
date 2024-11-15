@@ -38,7 +38,7 @@
     },
     methods: {
       selectInstrument(instrument) {
-        this.$emit('instrument-selected', instrument); // Emitimos el evento al componente padre
+        this.$emit('instrument-selected', instrument); // Emito el evento al componente padre
       },
     },
   };

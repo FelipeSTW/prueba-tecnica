@@ -30,7 +30,7 @@ jest.mock('vue-echarts', () => ({
   }
 }))
 
-// Configure Vue Test Utils
+// Configuracion Vue Test Utils
 config.global.components = {
   'v-chart': {
     template: '<div class="v-chart"></div>'

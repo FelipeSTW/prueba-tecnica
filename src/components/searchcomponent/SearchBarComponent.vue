@@ -25,12 +25,12 @@ export default {
     const instrumentStore = useInstrumentStore();
     const searchQuery = ref('');
 
-    // Cargar los instrumentos cuando el componente sea montado
+    // Cargo los instrumentos cuando el componente sea montado
     onMounted(() => {
       instrumentStore.fetchInstruments();
     });
 
-    // Computed para filtrar instrumentos según el query de búsqueda
+    // filtro instrumentos según el query de búsqueda
     const filteredInstruments = computed(() => {
       if (!searchQuery.value) {
         return [];
@@ -42,7 +42,7 @@ export default {
 
     const selectInstrument = (instrument) => {
       instrumentStore.setSelectedInstrument(instrument);
-      searchQuery.value = ''; // Limpiar la búsqueda después de seleccionar un instrumento
+      searchQuery.value = ''; // Limpia la búsqueda después de seleccionar un instrumento
     };
 
     const formatCurrency = (value) => {
@@ -53,7 +53,6 @@ export default {
     };
 
     const handleSearch = () => {
-      // Este método se puede utilizar para otras funcionalidades adicionales al buscar
       console.log('Realizando búsqueda:', searchQuery.value);
     };
 

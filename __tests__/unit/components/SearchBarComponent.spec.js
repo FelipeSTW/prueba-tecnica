@@ -40,7 +40,7 @@ describe('SearchBarComponent', () => {
     const input = wrapper.find('input')
     await input.setValue('TEST')
     
-    // Esperar a que se actualice el computed
+    // Esperoa que se actualice el computed
     await wrapper.vm.$nextTick()
     
     expect(wrapper.findAll('.list-result li')).toHaveLength(2)

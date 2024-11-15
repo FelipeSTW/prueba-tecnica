@@ -75,7 +75,7 @@ export const useInstrumentStore = defineStore('instrument', {
     },
     setSelectedInstrument(instrument) {
       this.selectedInstrument = instrument;
-      // Llamar a las acciones para cargar los datos necesarios
+      // Llamo a las acciones para cargar los datos necesarios
       this.fetchSummary(instrument.id);
       this.fetchHistory(instrument.id);
     },
