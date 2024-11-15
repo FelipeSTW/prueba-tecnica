@@ -46,9 +46,6 @@ function handleInstrumentSelected(instrument) {
     </v-container>
 
     <v-main>
-      <!-- Componente de Tabs para cambiar el índice -->
-      <p>Índice actual: {{ instrumentStore.selectedIndex }}</p>
-
       <!-- Header que muestra el índice seleccionado -->
       <HeaderComponent
         :indexName="instrumentStore.selectedIndex"
