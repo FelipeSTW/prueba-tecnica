@@ -1,26 +1,52 @@
 <template>
-    <div class="instrument-list">
-      <!-- Encabezado de la tabla -->
-      <div class="instrument-header">
-        <div>Nombre</div>
-        <div>Último</div>
-        <div>Monto (MM)</div>
-        <div>Var día</div>
-        <div>Var 30d</div>
-        <div>Año Actual</div>
-        <div>12 Meses</div>
+  <div class="instrument-list">
+    <div class="instrument-columns">
+      <!-- Primera columna (16 instrumentos) -->
+      <div class="instrument-column">
+        <div class="instrument-header">
+          <div>Nombre</div>
+          <div>Último</div>
+          <div>Monto (MM)</div>
+          <div>Var día</div>
+          <div>Var 30d</div>
+          <div>Año Actual</div>
+          <div>12 Meses</div>
+        </div>
+
+        <!-- Lista para la primera columna -->
+        <InstrumentItemComponent
+          v-for="(instrument, index) in instruments.slice(0, 16)"
+          :key="instrument.id"
+          :instrument="instrument"
+          @click.native="selectInstrument(instrument)"
+        />
       </div>
-  
-      <!-- Lista de instrumentos -->
-      <InstrumentItemComponent
-        v-for="instrument in instruments"
-        :key="instrument.id"
-        :instrument="instrument"
-        @click.native="selectInstrument(instrument)"
-      />
+      
+      <!-- Segunda columna (16 instrumentos) -->
+      <div class="instrument-column">
+       
+        <div class="instrument-header">
+          <div>Nombre</div>
+          <div>Último</div>
+          <div>Monto (MM)</div>
+          <div>Var día</div>
+          <div>Var 30d</div>
+          <div>Año Actual</div>
+          <div>12 Meses</div>
+        </div>
+
+        <!-- Lista de instrumentos para la segunda columna -->
+        <InstrumentItemComponent
+          v-for="(instrument, index) in instruments.slice(16, instruments.length)"
+          :key="instrument.id"
+          :instrument="instrument"
+          @click.native="selectInstrument(instrument)"
+        />
+      </div>
     </div>
-  </template>
-  
+  </div>
+</template>
+
   <script>
   import InstrumentItemComponent from '../instrumentitemcomponent/InstrumentItemComponent.vue';
 
@@ -67,6 +93,20 @@
   }
   .instrument-header div:first-child {
     text-align: left;
+  }
+  
+  /* Estilos para las columnas */
+  .instrument-columns {
+    display: flex;
+    gap: 20px; 
+    margin-top: 20px;
+  }
+  
+  .instrument-column {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
   }
   </style>
   

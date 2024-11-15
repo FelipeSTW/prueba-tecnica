@@ -71,6 +71,7 @@ export default {
 .instrument-change {
   width: 14%;
   text-align: right;
+  color: white;
 }
 .instrument-change.positive {
   color: #4CAF50; 

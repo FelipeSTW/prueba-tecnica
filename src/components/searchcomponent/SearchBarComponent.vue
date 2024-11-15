@@ -69,7 +69,7 @@ export default {
 
 <style scoped>
 .search-bar {
-  padding: 10px;
+  padding: 5px;
   background-color: #333;
   border-radius: 4px;
   display: flex;
