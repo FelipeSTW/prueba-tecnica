@@ -3,26 +3,21 @@ module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'json', 'vue'],
   transform: {
     '^.+\\.vue$': '@vue/vue3-jest',
-    '^.+\\.js$': 'babel-jest'
+    '^.+\\.jsx?$': 'babel-jest'
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
   },
   transformIgnorePatterns: [
-    'node_modules/(?!@vue|vue|vuetify|@mdi/)'
+    'node_modules/(?!(vue-echarts|echarts|zrender|tslib|resize-detector)/)'
   ],
   testMatch: [
     '**/__tests__/**/*.[jt]s?(x)',
     '**/?(*.)+(spec|test).[tj]s?(x)'
   ],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testEnvironmentOptions: {
-    customExportConditions: ['node', 'node-addons'],
-  },
-  setupFiles: ['<rootDir>/jest.setup.js'],
-  collectCoverage: true,
-  collectCoverageFrom: [
-    'src/**/*.{js,vue}',
-    '!src/main.js'
-  ]
+    customExportConditions: ['node', 'node-addons']
+  }
 }

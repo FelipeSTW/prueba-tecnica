@@ -1,28 +1,41 @@
-import { config } from '@vue/test-utils'
+const { config } = require('@vue/test-utils')
 
-// Mock global objects
-global.ResizeObserver = class ResizeObserver {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
-}
+// Mock echarts modules
+jest.mock('echarts/core', () => ({
+  use: jest.fn(),
+  init: jest.fn()
+}))
 
-// Mock console.error
-console.error = jest.fn()
+jest.mock('echarts/renderers', () => ({
+  CanvasRenderer: jest.fn()
+}))
+
+jest.mock('echarts/charts', () => ({
+  LineChart: jest.fn()
+}))
+
+jest.mock('echarts/components', () => ({
+  TitleComponent: jest.fn(),
+  TooltipComponent: jest.fn(),
+  GridComponent: jest.fn(),
+  LegendComponent: jest.fn(),
+  DataZoomComponent: jest.fn()
+}))
+
+jest.mock('vue-echarts', () => ({
+  __esModule: true,
+  default: {
+    name: 'v-chart',
+    template: '<div class="v-chart"></div>'
+  }
+}))
 
 // Configure Vue Test Utils
-config.global.mocks = {
-  $t: (msg) => msg,
-  $route: {
-    params: {}
+config.global.components = {
+  'v-chart': {
+    template: '<div class="v-chart"></div>'
   }
 }
 
-// Mock Vuetify components
-config.global.stubs = {
-  'v-app': true,
-  'v-main': true,
-  'v-container': true,
-  'v-input': true
-}
-
+// Mock console methods
+console.error = jest.fn()
