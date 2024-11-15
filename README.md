@@ -1,42 +1,42 @@
-# Vue 3 + Jest Test Setup Guide
+# Configuración de Pruebas con Vue 3 + Jest
 
-This guide will help you set up a testing environment for a Vue 3 project using Jest. Follow these steps carefully to ensure everything works as expected.
+Esta guía te ayudará a configurar un entorno de pruebas para un proyecto de Vue 3 usando Jest. Sigue estos pasos cuidadosamente para asegurar que todo funcione correctamente.
 
-## Prerequisites
+## Prerrequisitos
 - Node.js >= 14
-- npm or yarn
+- npm o yarn
 
-## Step-by-Step Installation
+## Instalación Paso a Paso
 
-1. **Initialize the Project**
+1. **Inicializa el Proyecto**
    
-   Make sure you have a Vue project set up. You can create one using Vue CLI or Vite.
-   
-   ```bash
-   vue create my-vue3-project
-   # OR using Vite
-   npm create vite@latest my-vue3-project --template vue
-   ```
-
-2. **Navigate to Project Directory**
+   Asegúrate de tener un proyecto de Vue configurado. Puedes crear uno usando Vue CLI o Vite.
    
    ```bash
-   cd my-vue3-project
+   vue create mi-proyecto-vue3
+   # O usando Vite
+   npm create vite@latest mi-proyecto-vue3 --template vue
    ```
 
-3. **Install Dependencies**
+2. **Navega al Directorio del Proyecto**
    
-   Install Jest and related packages for Vue 3.
+   ```bash
+   cd mi-proyecto-vue3
+   ```
+
+3. **Instala Dependencias**
+   
+   Instala Jest y los paquetes relacionados para Vue 3.
    
    ```bash
    npm install --save-dev jest @vue/test-utils@next @vue/vue3-jest babel-jest @babel/preset-env
    ```
 
-   > **Note**: Using `@next` ensures that you get the latest version of `@vue/test-utils` that supports Vue 3.
+   > **Nota**: Usar `@next` asegura que obtengas la última versión de `@vue/test-utils` que soporta Vue 3.
 
-4. **Configure Babel**
+4. **Configura Babel**
 
-   Create a `babel.config.js` file in the root of your project with the following content:
+   Crea un archivo `babel.config.js` en la raíz de tu proyecto con el siguiente contenido:
 
    ```js
    module.exports = {
@@ -46,9 +46,9 @@ This guide will help you set up a testing environment for a Vue 3 project using 
    };
    ```
 
-5. **Configure Jest**
+5. **Configura Jest**
 
-   Create a `jest.config.cjs` file in the root of your project with the following content:
+   Crea un archivo `jest.config.cjs` en la raíz de tu proyecto con el siguiente contenido:
 
    ```js
    module.exports = {
@@ -66,9 +66,9 @@ This guide will help you set up a testing environment for a Vue 3 project using 
    };
    ```
 
-6. **Add Test Scripts**
+6. **Agrega Scripts de Pruebas**
 
-   Open `package.json` and add the following script under `"scripts"`:
+   Abre `package.json` y agrega el siguiente script bajo "scripts":
 
    ```json
    "scripts": {
@@ -76,65 +76,37 @@ This guide will help you set up a testing environment for a Vue 3 project using 
    }
    ```
 
-7. **Create a Sample Test File**
+7. **Ejecuta las Pruebas**
 
-   Create a folder structure like this:
-
-   ```
-   my-vue3-project/
-     └── __tests__/
-         └── unit/
-             └── components/
-                 └── HelloWorld.spec.js
-   ```
-
-   In `HelloWorld.spec.js`, add the following code:
-
-   ```js
-   import { mount } from '@vue/test-utils';
-   import HelloWorld from '@/components/HelloWorld.vue';
-
-   describe('HelloWorld.vue', () => {
-     it('renders properly', () => {
-       const wrapper = mount(HelloWorld, {
-         props: { msg: 'Hello Jest' }
-       });
-       expect(wrapper.text()).toContain('Hello Jest');
-     });
-   });
-   ```
-
-8. **Run Tests**
-
-   Finally, run your tests:
+   Finalmente, ejecuta tus pruebas:
 
    ```bash
    npm run test
    ```
 
-   If everything is set up correctly, the tests should pass without any errors.
+   Si todo está configurado correctamente, las pruebas deberían pasar sin errores.
 
-## Common Issues
+## Problemas Comunes
 
-- **Dependency Conflicts**: If you encounter dependency resolution errors, try using `npm install --legacy-peer-deps`.
-- **Vue Not Defined**: Ensure you're using `@vue/test-utils@next` and `@vue/vue3-jest` to properly support Vue 3.
-- **Babel Config**: Ensure `babel.config.js` is correctly configured to avoid issues with transpiling.
+- **Conflictos de Dependencias**: Si encuentras errores de resolución de dependencias, intenta usar `npm install --legacy-peer-deps`.
+- **Vue No Definido**: Asegúrate de estar usando `@vue/test-utils@next` y `@vue/vue3-jest` para soportar correctamente Vue 3.
+- **Configuración de Babel**: Asegúrate de que `babel.config.js` esté correctamente configurado para evitar problemas con la transpilación.
 
-## Folder Structure
-- `__tests__/`: Contains all your unit and integration tests.
-  - `unit/`: Unit tests for components and individual functions.
-  - `integration/`: Integration tests for combining different modules or components.
-- `components/`: Vue components.
-- `views/`: Vue views if applicable.
+## Estructura de Carpetas
+- `__tests__/`: Contiene todas tus pruebas unitarias e integradas.
+  - `unit/`: Pruebas unitarias para componentes y funciones individuales.
+  - `integration/`: Pruebas de integración para combinar diferentes módulos o componentes.
+- `components/`: Componentes de Vue.
+- `views/`: Vistas de Vue si corresponde.
 
-## Additional Tips
-- Always keep your dependencies updated.
-- Make sure your tests are scoped properly within the correct directory for Jest to find them.
+## Consejos Adicionales
+- Mantén siempre tus dependencias actualizadas.
+- Asegúrate de que tus pruebas estén ubicadas dentro del directorio correcto para que Jest pueda encontrarlas.
 
-## Useful Links
-- [Jest Documentation](https://jestjs.io/docs/getting-started)
-- [Vue Test Utils Documentation](https://next.vue-test-utils.vuejs.org/guide/)
-- [Babel Documentation](https://babeljs.io/docs/en/)
+## Enlaces Útiles
+- [Documentación de Jest](https://jestjs.io/docs/getting-started)
+- [Documentación de Vue Test Utils](https://next.vue-test-utils.vuejs.org/guide/)
+- [Documentación de Babel](https://babeljs.io/docs/en/)
 
-## Conclusion
-This guide should help you get started with testing in Vue 3 using Jest. If you still face issues, consider re-checking your configuration and version compatibility or consult the official documentation linked above.
+## Conclusión
+Esta guía debería ayudarte a comenzar con las pruebas en Vue 3 usando Jest. Si aún enfrentas problemas, considera revisar nuevamente tu configuración y la compatibilidad de las versiones, o consulta la documentación oficial enlazada arriba.
